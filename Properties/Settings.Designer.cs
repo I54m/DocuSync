@@ -22,5 +22,96 @@ namespace DocuSync.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool StartMinimized {
+            get {
+                return ((bool)(this["StartMinimized"]));
+            }
+            set {
+                this["StartMinimized"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
+  <string>My Games</string>
+  <string>PrivateNotes</string>
+  <string>ExcludedFolder</string>
+</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection ExcludedFolders {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["ExcludedFolders"]));
+            }
+            set {
+                this["ExcludedFolders"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsd=\"http://www.w3." +
+            "org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\r\n  <s" +
+            "tring>Thumbs.db</string>\r\n  <string>Desktop.ini</string>\r\n</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection ExcludedFiles {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["ExcludedFiles"]));
+            }
+            set {
+                this["ExcludedFiles"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LocalPath {
+            get {
+                return ((string)(this["LocalPath"]));
+            }
+            set {
+                this["LocalPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string RemotePath {
+            get {
+                return ((string)(this["RemotePath"]));
+            }
+            set {
+                this["RemotePath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DryRun {
+            get {
+                return ((bool)(this["DryRun"]));
+            }
+            set {
+                this["DryRun"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PromptOnConflict {
+            get {
+                return ((bool)(this["PromptOnConflict"]));
+            }
+            set {
+                this["PromptOnConflict"] = value;
+            }
+        }
     }
 }
