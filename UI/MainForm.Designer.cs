@@ -33,6 +33,7 @@
             trayIcon = new NotifyIcon(components);
             trayIconContextMenu = new ContextMenuStrip(components);
             closeToolStripMenuItem = new ToolStripMenuItem();
+            SettingsBtn = new Button();
             trayIconContextMenu.SuspendLayout();
             SuspendLayout();
             // 
@@ -47,21 +48,32 @@
             // 
             trayIconContextMenu.Items.AddRange(new ToolStripItem[] { closeToolStripMenuItem });
             trayIconContextMenu.Name = "contextMenuStrip1";
-            trayIconContextMenu.Size = new Size(181, 48);
+            trayIconContextMenu.Size = new Size(104, 26);
             trayIconContextMenu.Opening += trayIconContextMenu_Opening;
             // 
             // closeToolStripMenuItem
             // 
             closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            closeToolStripMenuItem.Size = new Size(180, 22);
+            closeToolStripMenuItem.Size = new Size(103, 22);
             closeToolStripMenuItem.Text = "Close";
             closeToolStripMenuItem.Click += closeToolStripMenuItem_Click;
+            // 
+            // SettingsBtn
+            // 
+            SettingsBtn.Location = new Point(23, 21);
+            SettingsBtn.Name = "SettingsBtn";
+            SettingsBtn.Size = new Size(75, 23);
+            SettingsBtn.TabIndex = 1;
+            SettingsBtn.Text = "Settings";
+            SettingsBtn.UseVisualStyleBackColor = true;
+            SettingsBtn.Click += SettingsBtn_Click;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(SettingsBtn);
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "DocuSync - Main Window";
@@ -76,5 +88,6 @@
         private NotifyIcon trayIcon;
         private ContextMenuStrip trayIconContextMenu;
         private ToolStripMenuItem closeToolStripMenuItem;
+        private Button SettingsBtn;
     }
 }

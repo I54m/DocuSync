@@ -1,3 +1,5 @@
+using DocuSync.UI;
+using System.Collections.Specialized;
 using System.Windows.Forms;
 
 namespace DocuSync
@@ -20,29 +22,35 @@ namespace DocuSync
         {
             this.Show();
             trayIcon.Visible = false;
-            WindowState = FormWindowState.Normal;
+            this.WindowState = FormWindowState.Normal;
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Minimized)
+            if (this.WindowState == FormWindowState.Minimized)
             {
                 this.Hide();
                 trayIcon.Visible = true;
                 trayIcon.ShowBalloonTip(1000);
             }
-            else if (FormWindowState.Normal == this.WindowState)
+            else if (this.WindowState == FormWindowState.Normal)
             { trayIcon.Visible = false; }
         }
 
         private void trayIconContextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
-           
+
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void SettingsBtn_Click(object sender, EventArgs e)
+        {
+            SettingsDialog settings = new SettingsDialog();
+            settings.ShowDialog();
         }
     }
 }
