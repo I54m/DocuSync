@@ -8,10 +8,52 @@ namespace DocuSync.Core
 {
     public static class Config
     {
-        public static string LocalPath => Environment.ExpandEnvironmentVariables(Properties.Settings.Default.LocalPath ?? "");
-        public static string RemotePath => Environment.ExpandEnvironmentVariables(Properties.Settings.Default.RemotePath ?? "");
-        public static IReadOnlyList<String> ExcludedFolders => Properties.Settings.Default.ExcludedFolders?.Cast<string>().ToList() ?? new List<string>();
-        public static IReadOnlyList<String> ExcludedFiles => Properties.Settings.Default.ExcludedFiles?.Cast<string>().ToList() ?? new List<string>();
+
+        public static IReadOnlyCollection<String> ExcludedFolders
+        {
+            get => Properties.Settings.Default.ExcludedFolders?.Cast<string>().ToList() ?? new List<string>();
+            set
+            {
+                Properties.Settings.Default.ExcludedFolders.Clear();
+                foreach (var folder in value)
+                {
+                    Properties.Settings.Default.ExcludedFolders.Add(folder);
+                }
+                Properties.Settings.Default.Save();
+            }
+        }
+        public static IReadOnlyCollection<String> ExcludedFiles
+        {
+            get => Properties.Settings.Default.ExcludedFiles?.Cast<string>().ToList() ?? new List<string>();
+            set
+            {
+                Properties.Settings.Default.ExcludedFiles.Clear();
+                foreach (var folder in value)
+                {
+                    Properties.Settings.Default.ExcludedFiles.Add(folder);
+                }
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        public static string LocalPath
+        {
+            get => Environment.ExpandEnvironmentVariables(Properties.Settings.Default.LocalPath ?? "");
+            set
+            {
+                Properties.Settings.Default.LocalPath = value;
+                Properties.Settings.Default.Save();
+            }
+        }
+        public static string RemotePath
+        {
+            get => Environment.ExpandEnvironmentVariables(Properties.Settings.Default.RemotePath ?? "");
+            set
+            {
+                Properties.Settings.Default.RemotePath = value;
+                Properties.Settings.Default.Save();
+            }
+        }
         public static bool DryRun
         {
             get => Properties.Settings.Default.DryRun;
@@ -38,6 +80,24 @@ namespace DocuSync.Core
                 Properties.Settings.Default.StartMinimized = value;
                 Properties.Settings.Default.Save();
             }
+        }
+
+        public static string GetAbsoluteLocalPath(string relativePath) => Path.GetFullPath(Path.Combine(LocalPath, relativePath));
+
+        public static string GetRelativeLocalPath(string fullPath)
+        {
+            var docs = Path.GetFullPath(LocalPath);
+            var rel = Path.GetRelativePath(docs, fullPath);
+            return rel.Replace('\\', '/'); // Normalize
+        }
+
+        public static string GetAbsoluteRemotePath(string relativePath) => Path.GetFullPath(Path.Combine(RemotePath, relativePath));
+
+        public static string GetRelativeRemotePath(string fullPath)
+        {
+            var docs = Path.GetFullPath(RemotePath);
+            var rel = Path.GetRelativePath(docs, fullPath);
+            return rel.Replace('\\', '/'); // Normalize
         }
     }
 }
