@@ -18,7 +18,7 @@ namespace DocuSync
             trayIcon.Text = "DocuSync";
         }
 
-        private void trayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void trayIcon_MouseClick(object sender, MouseEventArgs e)
         {
             this.Show();
             trayIcon.Visible = false;
