@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsDialog));
             LocalPathLabel = new Label();
             LocalPathValue = new TextBox();
@@ -51,6 +52,7 @@
             ExcludedFilesLabel = new Label();
             LocalPathBrowseBtn = new Button();
             RemotePathBrowseBtn = new Button();
+            SettingsDialogToolTip = new ToolTip(components);
             SuspendLayout();
             // 
             // LocalPathLabel
@@ -62,6 +64,7 @@
             LocalPathLabel.Size = new Size(62, 15);
             LocalPathLabel.TabIndex = 0;
             LocalPathLabel.Text = "Local Path";
+            SettingsDialogToolTip.SetToolTip(LocalPathLabel, "Absolute path to the top level directory where the files are locally stored");
             // 
             // LocalPathValue
             // 
@@ -70,6 +73,7 @@
             LocalPathValue.Name = "LocalPathValue";
             LocalPathValue.Size = new Size(587, 23);
             LocalPathValue.TabIndex = 1;
+            SettingsDialogToolTip.SetToolTip(LocalPathValue, "Absolute path to the top level directory where the files are locally stored");
             // 
             // RemotePathValue
             // 
@@ -78,6 +82,7 @@
             RemotePathValue.Name = "RemotePathValue";
             RemotePathValue.Size = new Size(587, 23);
             RemotePathValue.TabIndex = 3;
+            SettingsDialogToolTip.SetToolTip(RemotePathValue, "Absolute path to the top level directory where the files are locally stored");
             // 
             // RemotePathLabel
             // 
@@ -88,6 +93,7 @@
             RemotePathLabel.Size = new Size(75, 15);
             RemotePathLabel.TabIndex = 2;
             RemotePathLabel.Text = "Remote Path";
+            SettingsDialogToolTip.SetToolTip(RemotePathLabel, "Absolute path to the top level directory where the files are locally stored");
             // 
             // SaveBtn
             // 
@@ -97,6 +103,7 @@
             SaveBtn.Size = new Size(78, 23);
             SaveBtn.TabIndex = 4;
             SaveBtn.Text = "Save";
+            SettingsDialogToolTip.SetToolTip(SaveBtn, "Save changes and return to main window");
             SaveBtn.UseVisualStyleBackColor = true;
             SaveBtn.Click += SaveBtn_Click;
             // 
@@ -108,6 +115,7 @@
             CancelBtn.Size = new Size(85, 23);
             CancelBtn.TabIndex = 5;
             CancelBtn.Text = "Cancel";
+            SettingsDialogToolTip.SetToolTip(CancelBtn, "Discard changes and return to main window");
             CancelBtn.UseVisualStyleBackColor = true;
             CancelBtn.Click += CancelBtn_Click;
             // 
@@ -119,6 +127,7 @@
             DryRunChk.Name = "DryRunChk";
             DryRunChk.Size = new Size(15, 14);
             DryRunChk.TabIndex = 6;
+            SettingsDialogToolTip.SetToolTip(DryRunChk, "Don't copy or link any files, intead log operations. Used to test that your setup is working");
             DryRunChk.UseVisualStyleBackColor = true;
             // 
             // DryRunLabel
@@ -130,6 +139,7 @@
             DryRunLabel.Size = new Size(49, 15);
             DryRunLabel.TabIndex = 7;
             DryRunLabel.Text = "Dry Run";
+            SettingsDialogToolTip.SetToolTip(DryRunLabel, "Don't copy or link any files, intead log operations. Used to test that your setup is working");
             // 
             // PromptOnConflictLabel
             // 
@@ -140,6 +150,7 @@
             PromptOnConflictLabel.Size = new Size(111, 15);
             PromptOnConflictLabel.TabIndex = 9;
             PromptOnConflictLabel.Text = "Prompt On Conflict";
+            SettingsDialogToolTip.SetToolTip(PromptOnConflictLabel, "Prompt on File/Folder conflict or attempt to auto resolve");
             // 
             // PromptOnConflictChk
             // 
@@ -149,6 +160,7 @@
             PromptOnConflictChk.Name = "PromptOnConflictChk";
             PromptOnConflictChk.Size = new Size(15, 14);
             PromptOnConflictChk.TabIndex = 8;
+            SettingsDialogToolTip.SetToolTip(PromptOnConflictChk, "Prompt on File/Folder conflict or attempt to auto resolve");
             PromptOnConflictChk.UseVisualStyleBackColor = true;
             // 
             // StartMinimizedLabel
@@ -160,6 +172,7 @@
             StartMinimizedLabel.Size = new Size(90, 15);
             StartMinimizedLabel.TabIndex = 13;
             StartMinimizedLabel.Text = "Start Minimized";
+            SettingsDialogToolTip.SetToolTip(StartMinimizedLabel, "Start the application minimized to the notification area on start");
             // 
             // StartMinimizedChk
             // 
@@ -169,6 +182,7 @@
             StartMinimizedChk.Name = "StartMinimizedChk";
             StartMinimizedChk.Size = new Size(15, 14);
             StartMinimizedChk.TabIndex = 12;
+            SettingsDialogToolTip.SetToolTip(StartMinimizedChk, "Start the application minimized to the notification area on start");
             StartMinimizedChk.UseVisualStyleBackColor = true;
             // 
             // ExcludedFolderChkList
@@ -179,6 +193,7 @@
             ExcludedFolderChkList.Name = "ExcludedFolderChkList";
             ExcludedFolderChkList.Size = new Size(288, 166);
             ExcludedFolderChkList.TabIndex = 14;
+            SettingsDialogToolTip.SetToolTip(ExcludedFolderChkList, "List of local folders that will be kept local and backed up to the remote when required");
             // 
             // ExcludedFilesChkList
             // 
@@ -188,6 +203,7 @@
             ExcludedFilesChkList.Name = "ExcludedFilesChkList";
             ExcludedFilesChkList.Size = new Size(264, 166);
             ExcludedFilesChkList.TabIndex = 15;
+            SettingsDialogToolTip.SetToolTip(ExcludedFilesChkList, "List of local folders that will be kept local and backed up to the remote when required");
             // 
             // AddExcludedFolderBtn
             // 
@@ -197,6 +213,7 @@
             AddExcludedFolderBtn.Size = new Size(102, 23);
             AddExcludedFolderBtn.TabIndex = 16;
             AddExcludedFolderBtn.Text = "Add Folder";
+            SettingsDialogToolTip.SetToolTip(AddExcludedFolderBtn, "Add a folder to list");
             AddExcludedFolderBtn.UseVisualStyleBackColor = true;
             AddExcludedFolderBtn.Click += AddExcludedFolderBtn_Click;
             // 
@@ -208,6 +225,7 @@
             AddExcludedFileBtn.Size = new Size(89, 23);
             AddExcludedFileBtn.TabIndex = 17;
             AddExcludedFileBtn.Text = "Add Files";
+            SettingsDialogToolTip.SetToolTip(AddExcludedFileBtn, "Add file to list");
             AddExcludedFileBtn.UseVisualStyleBackColor = true;
             AddExcludedFileBtn.Click += AddExcludedFileBtn_Click;
             // 
@@ -219,6 +237,7 @@
             RemoveExcludedFolderBtn.Size = new Size(111, 23);
             RemoveExcludedFolderBtn.TabIndex = 18;
             RemoveExcludedFolderBtn.Text = "Remove Folders";
+            SettingsDialogToolTip.SetToolTip(RemoveExcludedFolderBtn, "Remove the selected folders from list");
             RemoveExcludedFolderBtn.UseVisualStyleBackColor = true;
             RemoveExcludedFolderBtn.Click += RemoveExcludedFolderBtn_Click;
             // 
@@ -230,6 +249,7 @@
             RemoveExcludedFileBtn.Size = new Size(89, 23);
             RemoveExcludedFileBtn.TabIndex = 19;
             RemoveExcludedFileBtn.Text = "Remove Files";
+            SettingsDialogToolTip.SetToolTip(RemoveExcludedFileBtn, "Remove selected files from list");
             RemoveExcludedFileBtn.UseVisualStyleBackColor = true;
             RemoveExcludedFileBtn.Click += RemoveExcludedFileBtn_Click;
             // 
@@ -242,6 +262,7 @@
             ExcludedFoldersLabel.Size = new Size(126, 15);
             ExcludedFoldersLabel.TabIndex = 20;
             ExcludedFoldersLabel.Text = "Excluded Local Folders";
+            SettingsDialogToolTip.SetToolTip(ExcludedFoldersLabel, "List of local folders that will be kept local and backed up to the remote when required");
             // 
             // ExcludedFilesLabel
             // 
@@ -252,6 +273,7 @@
             ExcludedFilesLabel.Size = new Size(111, 15);
             ExcludedFilesLabel.TabIndex = 21;
             ExcludedFilesLabel.Text = "Excluded Local Files";
+            SettingsDialogToolTip.SetToolTip(ExcludedFilesLabel, "List of local folders that will be kept local and backed up to the remote when required");
             // 
             // LocalPathBrowseBtn
             // 
@@ -261,6 +283,7 @@
             LocalPathBrowseBtn.Size = new Size(26, 19);
             LocalPathBrowseBtn.TabIndex = 22;
             LocalPathBrowseBtn.Text = "...";
+            SettingsDialogToolTip.SetToolTip(LocalPathBrowseBtn, "Browse");
             LocalPathBrowseBtn.UseVisualStyleBackColor = true;
             LocalPathBrowseBtn.Click += LocalPathBrowseBtn_Click;
             // 
@@ -272,8 +295,13 @@
             RemotePathBrowseBtn.Size = new Size(26, 19);
             RemotePathBrowseBtn.TabIndex = 23;
             RemotePathBrowseBtn.Text = "...";
+            SettingsDialogToolTip.SetToolTip(RemotePathBrowseBtn, "Browse");
             RemotePathBrowseBtn.UseVisualStyleBackColor = true;
             RemotePathBrowseBtn.Click += RemotePathBrowseBtn_Click;
+            // 
+            // SettingsDialogToolTip
+            // 
+            SettingsDialogToolTip.AutomaticDelay = 1000;
             // 
             // SettingsDialog
             // 
@@ -327,7 +355,6 @@
         private Label DryRunLabel;
         private Label PromptOnConflictLabel;
         private CheckBox PromptOnConflictChk;
-        private CheckedListBox checkedListBox1;
         private Label StartMinimizedLabel;
         private CheckBox StartMinimizedChk;
         private CheckedListBox ExcludedFolderChkList;
@@ -340,5 +367,6 @@
         private Label ExcludedFilesLabel;
         private Button LocalPathBrowseBtn;
         private Button RemotePathBrowseBtn;
+        private ToolTip SettingsDialogToolTip;
     }
 }
