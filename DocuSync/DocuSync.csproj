@@ -6,10 +6,11 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+	<OutputPath>..\.bin\Publish\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Assets\" />
+    <ProjectReference Include="..\DocuSyncShared\DocuSyncShared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

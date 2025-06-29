@@ -1,4 +1,6 @@
+using DocuSync.Core;
 using DocuSync.UI;
+using DocuSyncShared;
 using System.Collections.Specialized;
 using System.Windows.Forms;
 
@@ -9,6 +11,8 @@ namespace DocuSync
         public MainForm()
         {
             InitializeComponent();
+            this.Icon = AppIcons.TrayIcon;
+
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -16,13 +20,12 @@ namespace DocuSync
             trayIcon.BalloonTipTitle = "Window Minimized";
             trayIcon.BalloonTipText = "DocuSync is now running in the background";
             trayIcon.Text = "DocuSync";
-        }
-
-        private void trayIcon_MouseClick(object sender, MouseEventArgs e)
-        {
-            this.Show();
-            trayIcon.Visible = false;
-            this.WindowState = FormWindowState.Normal;
+            if (Config.StartMinimized && this.WindowState == FormWindowState.Normal)
+            {
+                this.WindowState = FormWindowState.Minimized;
+                this.ShowInTaskbar = false;
+                trayIcon.Visible = true;
+            }
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
@@ -36,10 +39,10 @@ namespace DocuSync
             else if (this.WindowState == FormWindowState.Normal)
             { trayIcon.Visible = false; }
         }
-
-        private void trayIconContextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        private void SettingsBtn_Click(object sender, EventArgs e)
         {
-
+            SettingsDialog settings = new SettingsDialog();
+            settings.ShowDialog();
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -47,10 +50,14 @@ namespace DocuSync
             this.Close();
         }
 
-        private void SettingsBtn_Click(object sender, EventArgs e)
+        private void trayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            SettingsDialog settings = new SettingsDialog();
-            settings.ShowDialog();
+            if (e.Button == MouseButtons.Left)
+            {
+                this.Show();
+                trayIcon.Visible = false;
+                this.WindowState = FormWindowState.Normal;
+            }
         }
     }
 }

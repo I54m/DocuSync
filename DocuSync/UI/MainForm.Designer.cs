@@ -42,14 +42,13 @@
             trayIcon.ContextMenuStrip = trayIconContextMenu;
             trayIcon.Icon = (Icon)resources.GetObject("trayIcon.Icon");
             trayIcon.Text = "trayIcon";
-            trayIcon.MouseClick += trayIcon_MouseClick;
+            trayIcon.MouseDoubleClick += trayIcon_MouseDoubleClick;
             // 
             // trayIconContextMenu
             // 
             trayIconContextMenu.Items.AddRange(new ToolStripItem[] { closeToolStripMenuItem });
             trayIconContextMenu.Name = "contextMenuStrip1";
             trayIconContextMenu.Size = new Size(104, 26);
-            trayIconContextMenu.Opening += trayIconContextMenu_Opening;
             // 
             // closeToolStripMenuItem
             // 
@@ -74,7 +73,6 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(SettingsBtn);
-            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "DocuSync - Main Window";
