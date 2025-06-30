@@ -8,11 +8,28 @@ namespace DocuSync
 {
     public partial class MainForm : Form
     {
+        private HeartBeatWriter? _heartBeat;
+        private System.Windows.Forms.Timer _heartBeatTimer;
+
         public MainForm()
         {
             InitializeComponent();
             this.Icon = AppIcons.TrayIcon;
+            StartHeartBeat();
+        }
 
+        public void StartHeartBeat()
+        {
+            Logger.SetLogFile(".\\Log", "DocuSync_");
+            Logger.Info("DocuSync started.");
+            _heartBeat = new HeartBeatWriter();
+            _heartBeatTimer = new System.Windows.Forms.Timer();
+            _heartBeatTimer.Interval = 5000;
+            _heartBeatTimer.Tick += (s, e) =>
+            {
+                _heartBeat.Beat();
+            };
+            _heartBeatTimer.Start();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -58,6 +75,17 @@ namespace DocuSync
                 trayIcon.Visible = false;
                 this.WindowState = FormWindowState.Normal;
             }
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _heartBeatTimer?.Stop();
+            _heartBeat?.Dispose();
+        }
+
+        private void SimAppHangBtn_Click(object sender, EventArgs e)
+        {
+            _heartBeatTimer?.Stop();
         }
     }
 }

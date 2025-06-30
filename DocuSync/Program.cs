@@ -1,3 +1,6 @@
+using DocuSync.Core;
+using DocuSyncShared;
+
 namespace DocuSync
 {
     internal static class Program

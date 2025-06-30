@@ -7,42 +7,92 @@ namespace DocuSyncWatchDog
 {
     static class Program
     {
+        private static HeartBeatMonitor? _monitor;
+        private static bool _running = true;
+
+        public static Process? DocuSync;
+        public static bool RestartNeeded = false;
+
         [STAThread]
         static void Main()
         {
-            Logger.SetLogFile(".\\Log", "DocuSync_");
-            Logger.Info("DocuSyncWatchDog started.");
-
-            while (true)
+            try
             {
-                var proc = new Process
+                Logger.SetLogFile(".\\Log", "DocuSync_");
+                Logger.Info("DocuSyncWatchDog started.");
+
+                while (_running)
                 {
-                    StartInfo = new ProcessStartInfo
+                    RestartNeeded = false;
+                    StartDocuSync();
+
+                    _monitor = new HeartBeatMonitor();
+
+                    Task.Run(() =>
                     {
-                        FileName = "DocuSync.exe",
-                        UseShellExecute = false
-                    }
-                };
+                        DocuSync.WaitForExit();
+                        Logger.Info($"DocuSync exited with code {DocuSync.ExitCode}");
+                        RestartNeeded = true;
+                    });
 
-                Logger.Info("Launching DocuSync...");
-                proc.Start();
-                proc.WaitForExit();
-                Logger.Info($"DocuSync exited with code {proc.ExitCode}");
+                    _monitor.Start();
 
-                var result = MessageBox.Show(
-                    $"DocuSync exited (code {proc.ExitCode}). Restart?",
-                    "DocuSync WatchDog",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning);
-
-                if (result != DialogResult.Yes)
-                {
-                    Logger.Info("User chose not to restart DocuSync.");
-                    break;
+                    if (RestartNeeded)
+                        if (RestartDocuSync())
+                            continue;
+                        else _running = false;
                 }
+
+
+
+
+                Logger.Info("DocuSyncWatchDog shutting down.");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error($"Docusync WatchDog encountered an Error: {ex.GetType().Name}: {ex.Message}");
+                Logger.Error($"StackTrace: {ex.StackTrace}");
             }
 
-            Logger.Info("DocuSyncWatchDog shutting down.");
+        }
+
+        public static bool RestartDocuSync()
+        {
+            if (_monitor == null || DocuSync == null) throw new InvalidOperationException("Cannot run DocuSync exit procedure as DocuSync is null or heartbeat monitor is null");
+            _monitor = null;
+            var result = MessageBox.Show(
+                $"DocuSync exited (code {DocuSync.ExitCode}). Restart?",
+                "DocuSync WatchDog",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+            DocuSync.Dispose();
+            DocuSync = null;
+            if (result == DialogResult.Yes)
+            {
+                Logger.Info("User chose to restart Docusync.");
+                return true;
+            }
+            else
+            {
+                Logger.Info("User chose not to restart DocuSync.");
+                return false;
+            }
+
+        }
+
+        public static void StartDocuSync()
+        {
+            DocuSync = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = "DocuSync.exe",
+                    UseShellExecute = false
+                }
+
+            };
+            Logger.Info("Launching DocuSync...");
+            DocuSync.Start();
         }
     }
 }

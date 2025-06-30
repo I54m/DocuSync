@@ -34,6 +34,7 @@
             trayIconContextMenu = new ContextMenuStrip(components);
             closeToolStripMenuItem = new ToolStripMenuItem();
             SettingsBtn = new Button();
+            SimAppHangBtn = new Button();
             trayIconContextMenu.SuspendLayout();
             SuspendLayout();
             // 
@@ -67,15 +68,27 @@
             SettingsBtn.UseVisualStyleBackColor = true;
             SettingsBtn.Click += SettingsBtn_Click;
             // 
+            // SimAppHangBtn
+            // 
+            SimAppHangBtn.Location = new Point(118, 21);
+            SimAppHangBtn.Name = "SimAppHangBtn";
+            SimAppHangBtn.Size = new Size(178, 23);
+            SimAppHangBtn.TabIndex = 2;
+            SimAppHangBtn.Text = "Simulate Application Hang";
+            SimAppHangBtn.UseVisualStyleBackColor = true;
+            SimAppHangBtn.Click += SimAppHangBtn_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(SimAppHangBtn);
             Controls.Add(SettingsBtn);
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "DocuSync - Main Window";
+            FormClosing += MainForm_FormClosing;
             Load += MainForm_Load;
             Resize += MainForm_Resize;
             trayIconContextMenu.ResumeLayout(false);
@@ -88,5 +101,6 @@
         private ContextMenuStrip trayIconContextMenu;
         private ToolStripMenuItem closeToolStripMenuItem;
         private Button SettingsBtn;
+        private Button SimAppHangBtn;
     }
 }
