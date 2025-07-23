@@ -34,6 +34,7 @@ namespace DocuSync
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            Environment.ExitCode = -1;
             trayIcon.BalloonTipTitle = "Window Minimized";
             trayIcon.BalloonTipText = "DocuSync is now running in the background";
             trayIcon.Text = "DocuSync";
@@ -47,14 +48,17 @@ namespace DocuSync
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
+            if (Environment.ExitCode == 0) return;
             if (this.WindowState == FormWindowState.Minimized)
             {
                 this.Hide();
                 trayIcon.Visible = true;
-                trayIcon.ShowBalloonTip(1000);
+                trayIcon.ShowBalloonTip(500);
             }
             else if (this.WindowState == FormWindowState.Normal)
-            { trayIcon.Visible = false; }
+            {
+                trayIcon.Visible = false;
+            }
         }
         private void SettingsBtn_Click(object sender, EventArgs e)
         {
@@ -64,7 +68,7 @@ namespace DocuSync
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Application.Exit();
         }
 
         private void trayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -79,6 +83,53 @@ namespace DocuSync
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            switch (e.CloseReason)
+            {
+                // User attempted to close app minimize instead
+                case CloseReason.UserClosing:
+                    {
+                        if (Environment.ExitCode == 0) return;
+                        e.Cancel = true;
+                        this.WindowState = FormWindowState.Minimized;
+                        return;
+                    }
+                // TrayIcon Exit option or exit called via other interal methods
+                case CloseReason.ApplicationExitCall:
+                    {
+                        if (this.WindowState == FormWindowState.Minimized)
+                        {
+                            this.Show();
+                            trayIcon.Visible = false;
+                            this.WindowState = FormWindowState.Normal;
+                        }
+                        DialogResult result = MessageBox.Show(
+                            $"DocuSync will now close",
+                            "DocuSync",
+                            MessageBoxButtons.OKCancel,
+                            MessageBoxIcon.Warning);
+                        if (result == DialogResult.Cancel)
+                        {
+                            Logger.Info("Close cancelled");
+                            e.Cancel = true;
+                            return;
+                        }
+                        else if (result == DialogResult.OK)
+                        {
+                            Logger.Info("User Closed Docusync");
+                            Environment.ExitCode = 0;
+                            this.Close();
+                        }
+                        break;
+                    }
+                // We are unsure what brought us here but close anyway
+                default:
+                    {
+                        Environment.ExitCode = 1;
+                        this.Close();
+                        break;
+                    }
+            }
+            // shutdown heartbeat regardless of closing reason (as long as we are actually closing and haven't returned already)
             _heartBeatTimer?.Stop();
             _heartBeat?.Dispose();
         }
