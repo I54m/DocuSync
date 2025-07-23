@@ -35,6 +35,12 @@ namespace DocuSyncWatchDog
             {
                 Thread.Sleep(_defaultTimeout * 1000);
 
+                if (DocuSync.HasExited && DocuSync.ExitCode == 0)
+                {
+                    _running = false;
+                    RestartNeeded = false;
+                    break;
+                }
                 if (RestartNeeded)
                 {
                     _running = false;

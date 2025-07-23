@@ -8,7 +8,6 @@ namespace DocuSyncWatchDog
     static class Program
     {
         private static HeartBeatMonitor? _monitor;
-        private static bool _running = true;
 
         public static Process? DocuSync;
         public static bool RestartNeeded = false;
@@ -20,7 +19,7 @@ namespace DocuSyncWatchDog
             {
                 Logger.SetLogFile(".\\Log", "DocuSync_");
                 Logger.Info("DocuSyncWatchDog started.");
-
+                bool _running = true;
                 while (_running)
                 {
                     RestartNeeded = false;
@@ -35,12 +34,12 @@ namespace DocuSyncWatchDog
                         if (DocuSync.ExitCode != 0) RestartNeeded = true;
                     });
 
-                    _monitor.Start();
+                    if (!DocuSync.HasExited) _monitor.Start();
 
                     if (RestartNeeded)
                         if (RestartDocuSync())
                             continue;
-                        else _running = false;
+                    _running = false;
                 }
 
 
@@ -82,6 +81,7 @@ namespace DocuSyncWatchDog
 
         public static void StartDocuSync()
         {
+            if (DocuSync != null && !DocuSync.HasExited) throw new InvalidOperationException("Cannot start Docusync while an instance of the app is already running!!");
             DocuSync = new Process
             {
                 StartInfo = new ProcessStartInfo
