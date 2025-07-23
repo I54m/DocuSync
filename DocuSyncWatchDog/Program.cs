@@ -32,7 +32,7 @@ namespace DocuSyncWatchDog
                     {
                         DocuSync.WaitForExit();
                         Logger.Info($"DocuSync exited with code {DocuSync.ExitCode}");
-                        RestartNeeded = true;
+                        if (DocuSync.ExitCode != 0) RestartNeeded = true;
                     });
 
                     _monitor.Start();
