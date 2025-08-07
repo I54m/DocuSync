@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DocuSync.Core
+namespace DocuSync.Sync
 {
-    internal class RoboCopyHelper
+    internal class SymlinkEngine
     {
     }
 }

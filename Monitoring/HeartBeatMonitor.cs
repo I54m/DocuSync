@@ -1,13 +1,12 @@
-﻿using DocuSyncShared;
+﻿using DocuSync.Core;
 using System;
 using System.Collections.Generic;
 using System.IO.MemoryMappedFiles;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static DocuSyncWatchDog.Program;
 
-namespace DocuSyncWatchDog
+namespace DocuSync.Monitoring
 {
     public class HeartBeatMonitor
     {
@@ -47,7 +46,7 @@ namespace DocuSyncWatchDog
                     break;
                 }
 
-                if (!this.IsAlive())
+                if (!IsAlive())
                 {
                     Logger.Warning($"Last HeartBeat from DocuSync was {_lastHB}s ago!");
                     _hangCount++;

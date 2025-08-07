@@ -1,9 +1,10 @@
-﻿using System;
+using DocuSync.Core;
+using DocuSync.Monitoring;
+using System;
 using System.Diagnostics;
 using System.Windows.Forms;
-using DocuSyncShared;
 
-namespace DocuSyncWatchDog
+namespace DocuSync
 {
     static class Program
     {
@@ -19,6 +20,14 @@ namespace DocuSyncWatchDog
             {
                 Logger.SetLogFile(".\\Log", "DocuSync_");
                 Logger.Info("DocuSyncWatchDog started.");
+                if (!PrivilegeHelper.IsElevated())
+                {
+                    Logger.Error("Not Launched in elevated mode, relaunching...");
+                    PrivilegeHelper.RelaunchAsAdmin();
+                    return;
+                }
+
+
                 bool _running = true;
                 while (_running)
                 {
@@ -81,17 +90,29 @@ namespace DocuSyncWatchDog
 
         public static void StartDocuSync()
         {
-            if (DocuSync != null && !DocuSync.HasExited) throw new InvalidOperationException("Cannot start Docusync while an instance of the app is already running!!");
+            if (DocuSync != null && !DocuSync.HasExited)
+                throw new InvalidOperationException("Cannot start DocuSync while an instance of the app is already running!");
+
+            PrivilegeHelper.CreateScheduledTaskIfMissing(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DocuSync.exe"));
+
             DocuSync = new Process
             {
                 StartInfo = new ProcessStartInfo
                 {
-                    FileName = "DocuSync.exe",
-                    UseShellExecute = false
+                    FileName = "schtasks",
+                    Arguments = "/Run /TN \"DocuSyncElevated\"",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    CreateNoWindow = true
                 }
-
             };
-            Logger.Info("Launching DocuSync...");
+
+            ApplicationConfiguration.Initialize();
+            Application.Run(new MainForm());
+
+
+            Logger.Info("Launching DocuSync via scheduled task...");
             DocuSync.Start();
         }
     }

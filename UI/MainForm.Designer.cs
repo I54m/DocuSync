@@ -85,6 +85,7 @@
             ClientSize = new Size(800, 450);
             Controls.Add(SimAppHangBtn);
             Controls.Add(SettingsBtn);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "DocuSync - Main Window";

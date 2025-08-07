@@ -6,11 +6,13 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-	<OutputPath>..\.bin\Publish\</OutputPath>
+	<OutputPath>..\build</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DocuSyncShared\DocuSyncShared.csproj" />
+    <EmbeddedResource Include="Resources\DocuSyncLogo.ico" />
+    <EmbeddedResource Include="Resources\DocuSyncLogo.png" />
+    <EmbeddedResource Include="Resources\DocuSyncTitle.png" />
   </ItemGroup>
 
   <ItemGroup>

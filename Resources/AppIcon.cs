@@ -1,7 +1,7 @@
 using System.Reflection;
 using System.Drawing;
 
-namespace DocuSyncShared
+namespace DocuSync.Resources
 {
     public static class AppIcons
     {

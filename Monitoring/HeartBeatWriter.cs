@@ -1,12 +1,11 @@
-﻿using DocuSyncShared;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO.MemoryMappedFiles;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DocuSync.Core
+namespace DocuSync.Monitoring
 {
     public class HeartBeatWriter
     {

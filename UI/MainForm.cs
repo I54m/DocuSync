@@ -1,4 +1,6 @@
 using DocuSync.Core;
+using DocuSync.Monitoring;
+using DocuSync.Resources;
 using DocuSync.UI;
 using DocuSyncShared;
 using System.Collections.Specialized;

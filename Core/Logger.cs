@@ -13,7 +13,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace DocuSyncShared
+namespace DocuSync.Core
 {
     /// <summary>
     /// Simple logging class
